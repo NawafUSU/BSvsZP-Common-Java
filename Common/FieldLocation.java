@@ -79,7 +79,10 @@ public class FieldLocation extends DistributableObject {
         ClassId = (short) DISTRIBUTABLE_CLASS_IDS.FieldLocation.getValue();
         return ClassId;
     }
-
+    public String ToString()
+    {
+        return String.format("{0}x{1}", X, Y);
+    }
     @Override
     public void Encode(ByteList bytes) throws NotActiveException, Exception {
         bytes.Add((short) DISTRIBUTABLE_CLASS_IDS.FieldLocation.getValue());                             // Write out the class type

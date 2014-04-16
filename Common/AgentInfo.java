@@ -142,9 +142,10 @@ public class AgentInfo extends ComponentInfo {
     public enum PossibleAgentStatus {
 
         NotInGame(0),
-        InGame(1),
-        WonGame(2),
-        LostGame(3);
+        TryingToJoin(1),
+        InGame(2),
+        WonGame(3),
+        LostGame(4);
 
         private int value;
 
