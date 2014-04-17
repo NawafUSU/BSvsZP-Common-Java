@@ -6,7 +6,7 @@ import org.omg.CORBA.portable.ApplicationException;
 
 public class FieldLocation extends DistributableObject {
 
-    private static short ClassId;
+    private static short ClassId = (short) DISTRIBUTABLE_CLASS_IDS.FieldLocation.getValue();
     private boolean xSet = false;
     private boolean ySet = false;
     private boolean immutable = false;
@@ -104,7 +104,7 @@ public class FieldLocation extends DistributableObject {
     protected void Decode(ByteList bytes) throws ApplicationException, Exception {
         if (bytes == null || bytes.getRemainingToRead() < getMinimumEncodingLength()) {
             throw new ApplicationException("Invalid byte array", null);
-        } else if (bytes.PeekInt16() != getClassId()) {
+        } else if (bytes.PeekInt16() != (short) DISTRIBUTABLE_CLASS_IDS.FieldLocation.getValue()) {
             throw new ApplicationException("Invalid class id", null);
         } else if (immutable) {
             throw new ApplicationException("Cannot use Decode to alter an immutable FieldLocation object", null);

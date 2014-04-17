@@ -7,7 +7,7 @@ import Common.DistributableObject.DISTRIBUTABLE_CLASS_IDS;
 
 public class AgentInfo extends ComponentInfo {
 
-    private static short ClassId;
+    private static short ClassId = (short) DISTRIBUTABLE_CLASS_IDS.AgentInfo.getValue();
     private String ANumber;
     private String FirstName;
     private String LastName;

@@ -1,0 +1,17 @@
+==================================
+4/17/2014
+==================================
+Tick class
+1) Added forAgentId to the Tck.java class
+2) Updated Tick's constructors and ComputeHashCode() method
+3) Updated Tick.encode method 
+4) Updated MinimumEncodingLength
+5) Update Decode method
+TickDelivery class
+1) Updated MessageTypeId
+   
+==================================
+4/15/2014
+==================================
+1) Added a "TryingToJoin" Status for AgentInfo.java
+2) Added toString method to FieldLocation.java

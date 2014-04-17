@@ -1,1 +1,0 @@
-1) Added a "TryingToJoin" Status for Agents
