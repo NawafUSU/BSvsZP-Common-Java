@@ -33,7 +33,7 @@ public class ReadyReply extends Reply
 
         if (messageBytes==null || messageBytes.getRemainingToRead()< getMinimumEncodingLength())
             throw new ApplicationException("Invalid message byte array", null);
-        if (messageBytes.PeekInt16() != ClassId)
+        if (messageBytes.PeekInt16() != (short)MESSAGE_CLASS_IDS.ReadyReply.getValue())
             throw new ApplicationException("Invalid message class id", null);
         else
         {

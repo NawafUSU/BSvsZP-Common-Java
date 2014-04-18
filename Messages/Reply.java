@@ -103,60 +103,60 @@ public abstract class Reply extends Message {
         Note = note;
     }
 
-    public static Reply Create(ByteList messageBytes) throws Exception {
+    public static Reply Create(ByteList bytes) throws Exception {
         Reply result = null;
 
-        if (messageBytes == null || messageBytes.getRemainingToRead() < 6) {
+        if (bytes == null || bytes.getRemainingToRead() < getMinimumEncodingLength()) {
             throw new ApplicationException("Invalid message byte array", null);
         }
 
-        short msgType = messageBytes.PeekInt16();
+        short msgType = bytes.PeekInt16();
 
-        if (msgType == (short) MESSAGE_CLASS_IDS.AckNak.getValue()) {
-            result = AckNak.Create(messageBytes);
-        } else if (msgType == (short) MESSAGE_CLASS_IDS.ReadyReply.getValue()) {
-            result = ReadyReply.Create(messageBytes);
-        } else if (msgType == (short) MESSAGE_CLASS_IDS.ResourceReply.getValue()) {
-            result = ResourceReply.Create(messageBytes);
-        } else if (msgType == (short) MESSAGE_CLASS_IDS.ConfigurationReply.getValue()) {
-            result = ResourceReply.Create(messageBytes);
-        } else if (msgType == (short) MESSAGE_CLASS_IDS.PlayingFieldReply.getValue()) {
-            result = ConfigurationReply.Create(messageBytes);
-        } else if (msgType == (short) MESSAGE_CLASS_IDS.AgentListReply.getValue()) {
-            result = AgentListReply.Create(messageBytes);
-        } else if (msgType == (short) MESSAGE_CLASS_IDS.StatusReply.getValue()) {
-            result = StatusReply.Create(messageBytes);
-        } else {
+        if (msgType == (short) MESSAGE_CLASS_IDS.AckNak.getValue()) 
+            result = AckNak.Create(bytes);
+        else if (msgType == (short) MESSAGE_CLASS_IDS.ReadyReply.getValue())
+            result = ReadyReply.Create(bytes);
+         else if (msgType == (short) MESSAGE_CLASS_IDS.ResourceReply.getValue()) 
+            result = ResourceReply.Create(bytes);
+         else if (msgType == (short) MESSAGE_CLASS_IDS.ConfigurationReply.getValue()) 
+            result = ResourceReply.Create(bytes);
+         else if (msgType == (short) MESSAGE_CLASS_IDS.PlayingFieldReply.getValue()) 
+            result = ConfigurationReply.Create(bytes);
+         else if (msgType == (short) MESSAGE_CLASS_IDS.AgentListReply.getValue()) 
+            result = AgentListReply.Create(bytes);
+         else if (msgType == (short) MESSAGE_CLASS_IDS.StatusReply.getValue()) 
+            result = StatusReply.Create(bytes);
+         else {
             throw new ApplicationException("Invalid Message Class Id", null);
         }
         return result;
     }
 
     @Override
-    public void Encode(ByteList messageBytes) throws UnknownHostException, NotActiveException, Exception {
-        messageBytes.Add((short) MESSAGE_CLASS_IDS.Reply.getValue());                            // Write out this class id first
-        messageBytes.update();
+    public void Encode(ByteList bytes) throws UnknownHostException, NotActiveException, Exception {
+        bytes.Add((short) MESSAGE_CLASS_IDS.Reply.getValue());                            // Write out this class id first
+        bytes.update();
 
-        short lengthPos = messageBytes.getCurrentWritePosition();    // Get the current write position, so we
+        short lengthPos = bytes.getCurrentWritePosition();    // Get the current write position, so we
         // can write the length here later
-        messageBytes.Add((short) 0);                             // Write out a place holder for the length
-        messageBytes.update();
+        bytes.Add((short) 0);                             // Write out a place holder for the length
+        bytes.update();
 
-        super.Encode(messageBytes);                              // Encode stuff from base class
+        super.Encode(bytes);                              // Encode stuff from base class
 
-        messageBytes.Add((byte) ReplyType.getValue());            // Write out a place holder for the length
-        messageBytes.update();
+        bytes.Add((byte) ReplyType.getValue());            // Write out a place holder for the length
+        bytes.update();
 
-        messageBytes.Add((byte) Status.getValue());               // Write out a place holder for the length
-        messageBytes.update();
+        bytes.Add((byte) Status.getValue());               // Write out a place holder for the length
+        bytes.update();
 
-        if (Note == null) {
-            Note = "";
-        }
-        messageBytes.Add(Note);
-        messageBytes.update();
-        short length = (short) (messageBytes.getCurrentWritePosition() - lengthPos - 2);
-        messageBytes.WriteInt16To(lengthPos, length);           // Write out the length of this object        
+        if (Note == null) Note = "";
+        
+        bytes.Add(Note);
+        bytes.update();
+        short length = (short) (bytes.getCurrentWritePosition() - lengthPos - 2);
+        bytes.update();
+        bytes.WriteInt16To(lengthPos, length);           // Write out the length of this object        
     }
 
     @Override
@@ -213,10 +213,10 @@ public abstract class Reply extends Message {
     }
 
     public static int getMinimumEncodingLength() {
-        MinimumEncodingLength = 4 // Object header
-                + 1 // ReplyType
-                + 1 // Status
-                + 2;             // Note
+        MinimumEncodingLength = 4		// Object header
+        						+ 1 	// ReplyType
+        						+ 1 	// Status
+        						+ 2;    // Note
         System.out.println("Reply.MinimumEncodingLength" + MinimumEncodingLength);
         return MinimumEncodingLength;
     }

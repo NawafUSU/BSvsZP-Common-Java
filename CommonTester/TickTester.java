@@ -25,12 +25,13 @@ public class TickTester {
 
         tick1 = new Tick((short) 10);
         Tick tick2 = new Tick();
-        System.out.println("tick1.getLogicalClock() = " + tick1.getLogicalClock());
-        System.out.println("tick2.getLogicalClock() = " + tick2.getLogicalClock());
+        
+       
         assertEquals(10, tick1.getForAgentId());
-       // assertEquals(tick1.getLogicalClock() + 1 , tick2.getLogicalClock());
-       // assertEquals(tick1.getHashCode(), tick2.getHashCode()); //!(equals(Long.valueOf(tick2.getHashCode())))
-        assertNotSame(tick1.getHashCode(), tick2.getHashCode());
+        assertEquals(tick1.getLogicalClock() , tick2.getLogicalClock());
+        assertEquals(tick1.getHashCode(), tick2.getHashCode());
+        
+        assertEquals(tick1.getHashCode(), tick2.getHashCode());
     }
 
 

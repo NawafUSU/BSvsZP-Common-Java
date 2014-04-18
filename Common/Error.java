@@ -21,7 +21,10 @@ public class Error
          JoinRequestIsOnlyValidForAvailableGames(1203),
          JoinRequestIsIncomplete(1204),
          AgentCannotBeAddedToGame(1205),
-         InvalidResourceType(1301);
+         InvalidResourceType(1301),
+         StartProtocolFailed(1401),
+         SomeAgentsDidNotRespondToStartGameRequest(1402),
+         SomeAgentsNotReadyToStartGame(1403);
          
          private int value;
          
@@ -116,8 +119,22 @@ public class Error
         err11.Number =   StandardErrorNumbers.InvalidResourceType;
         err11.Message =  "Invalid Resource Type";
         standardErrors.put(StandardErrorNumbers.InvalidResourceType, err11);
-    }
-    
+        
+        Error err12 = new Error();
+        err12.Number =  StandardErrorNumbers.StartProtocolFailed;
+        err12.Message = "Start Protocol Failed - game is shutting done";
+        standardErrors.put(StandardErrorNumbers.StartProtocolFailed, err12);
+        
+        Error err13 = new Error();
+        err13.Number =  StandardErrorNumbers.SomeAgentsDidNotRespondToStartGameRequest;
+        err13.Message = "Some agents did not respond to start game request - go back to waiting for a start request";
+        standardErrors.put(StandardErrorNumbers.SomeAgentsDidNotRespondToStartGameRequest, err13);
+        
+        Error err14 = new Error();
+        err14.Number =  StandardErrorNumbers.SomeAgentsNotReadyToStartGame;
+        err14.Message = "Some agents not ready to start game - go back to waiting for a start request";
+        standardErrors.put(StandardErrorNumbers.SomeAgentsNotReadyToStartGame, err14); 
+     }
     
      public StandardErrorNumbers getNumber() {
 	 	return Number;

@@ -13,24 +13,24 @@ public class GameConfiguration extends DistributableObject {
 
     private short BrilliantStudentRegistrationMin;
     private short BrilliantStudentRegistrationMax;
-    private short ExcuseGeneratorRegistrationMin;
-    private short ExcuseGeneratorRegistrationMax;
-    private short WhiningSpinnerRegistrationMin;
-    private short WhiningSpinnerRegistrationMax;
-
     private float BrilliantStudentInitialStrength;          // Strength units
     private float BrilliantStudentBaseSpeed;                // Distance units (Squares) per move request (tick)
     private float BrilliantStudentSidewalkSpeedMultiplier;  // Distance units (Squares) per move request (tick)
-    private float BrilliantStudentDeathToZombieDelay;     // Number of seconds before a dead student becomes a zombie
+    private float BrilliantStudentDeathToZombieDelay;       // Number of seconds before a dead student becomes a zombie
 
     private float ExcuseGeneratorInitialStrength;           // Strength units
-    private float ExcuseCreationRate;                    // Excuses per tick or the inverse of ticks per excuse
+    private float ExcuseCreationRate;                       // Excuses per tick or the inverse of ticks per excuse
     private float ExcuseCreationAcceleration;               // Increase in creation rate per 10 seconds
-
+    private short ExcuseGeneratorRegistrationMin;
+    private short ExcuseGeneratorRegistrationMax;
+   
     private float WhiningSpinnerInitialStrength;       // Strength units
     private float WhiningTwineCreationRate;                  // Excuses per tick or the inverse of ticks per excuse
     private float WhiningTwineCreationAcceleration;         // Increase in creation rate per 10 seconds
-
+    private short WhiningSpinnerRegistrationMin;
+    private short WhiningSpinnerRegistrationMax;
+    
+    
     private short ZombieInitialStrengthMin;
     private short ZombieInitialStrengthMax;
     private float ZombieInitialSpeedMax;
@@ -47,11 +47,17 @@ public class GameConfiguration extends DistributableObject {
     private float BombTwinePerSquareOfDistance;            // Number of twine pieces per unit of distance
     private float BombDamageDiffusionFactor;               // Percentage of remaining damage that can be spread to surround squares
 
+    public short RefereeRegistrationMin;
+    public short RefereeRegistrationMax;
+    
     public short TickInterval;
     private short TickLifetime;                       // Number of seconds that a tick remains active
     private float TicksToStrengthRatio;
 
     private static int MinimumEncodingLength;
+    
+    private byte NumberOfTicksRequiredToBuildAnExcuse;
+    public byte NumberOfTicksRequiredToBuildTwine;
 
     public GameConfiguration() {
         ResetToDefaults();
@@ -63,11 +69,6 @@ public class GameConfiguration extends DistributableObject {
 
         BrilliantStudentRegistrationMin = orig.BrilliantStudentRegistrationMin;
         BrilliantStudentRegistrationMax = orig.BrilliantStudentRegistrationMax;
-        ExcuseGeneratorRegistrationMin = orig.ExcuseGeneratorRegistrationMin;
-        ExcuseGeneratorRegistrationMax = orig.ExcuseGeneratorRegistrationMax;
-        WhiningSpinnerRegistrationMin = orig.WhiningSpinnerRegistrationMin;
-        WhiningSpinnerRegistrationMax = orig.WhiningSpinnerRegistrationMax;
-
         BrilliantStudentInitialStrength = orig.BrilliantStudentInitialStrength;
         BrilliantStudentBaseSpeed = orig.BrilliantStudentBaseSpeed;
         BrilliantStudentSidewalkSpeedMultiplier = orig.BrilliantStudentSidewalkSpeedMultiplier;
@@ -76,11 +77,17 @@ public class GameConfiguration extends DistributableObject {
         ExcuseGeneratorInitialStrength = orig.ExcuseGeneratorInitialStrength;
         ExcuseCreationRate = orig.ExcuseCreationRate;
         ExcuseCreationAcceleration = orig.ExcuseCreationAcceleration;
-
+        ExcuseGeneratorRegistrationMin = orig.ExcuseGeneratorRegistrationMin;
+        ExcuseGeneratorRegistrationMax = orig.ExcuseGeneratorRegistrationMax;
+        
+        
         WhiningSpinnerInitialStrength = orig.WhiningSpinnerInitialStrength;
         WhiningTwineCreationRate = orig.WhiningTwineCreationRate;
         WhiningTwineCreationAcceleration = orig.WhiningTwineCreationAcceleration;
+        WhiningSpinnerRegistrationMin = orig.WhiningSpinnerRegistrationMin;
+        WhiningSpinnerRegistrationMax = orig.WhiningSpinnerRegistrationMax;
 
+        
         ZombieInitialStrengthMin = orig.ZombieInitialStrengthMin;
         ZombieInitialStrengthMax = orig.ZombieInitialStrengthMax;
         ZombieInitialSpeedMax = orig.ZombieInitialSpeedMax;
@@ -100,7 +107,12 @@ public class GameConfiguration extends DistributableObject {
         TickInterval = orig.TickInterval;
         TickLifetime = orig.TickLifetime;
         TicksToStrengthRatio = orig.TicksToStrengthRatio;
-
+        
+        RefereeRegistrationMin = orig.RefereeRegistrationMin;
+        RefereeRegistrationMax = orig.RefereeRegistrationMax;
+        
+        NumberOfTicksRequiredToBuildAnExcuse = orig.NumberOfTicksRequiredToBuildAnExcuse;
+        NumberOfTicksRequiredToBuildTwine = orig.NumberOfTicksRequiredToBuildTwine;
     }
 
     //new
@@ -401,16 +413,58 @@ public class GameConfiguration extends DistributableObject {
 
     public static int getMinimumEncodingLength() {
         MinimumEncodingLength = 4 // Object header
-                + 2 * 11 // Int16 properties
-                + 4 * 21;      // float properties
+        						+ 2 * 15 // Int16 properties
+        						+ 4 * 18;      // float properties
         return MinimumEncodingLength;
     }
 
     public static void setClassId(short classId) {
-        ClassId = classId;
+        ClassId = (short) DISTRIBUTABLE_CLASS_IDS.GameConfiguration.getValue();
     }
 
-    @Override
+    public short getRefereeRegistrationMin() {
+		return RefereeRegistrationMin;
+	}
+
+	public void setRefereeRegistrationMin(short refereeRegistrationMin) {
+		RefereeRegistrationMin = refereeRegistrationMin;
+	}
+
+	public short getRefereeRegistrationMax() {
+		return RefereeRegistrationMax;
+	}
+
+	public void setRefereeRegistrationMax(short refereeRegistrationMax) {
+		RefereeRegistrationMax = refereeRegistrationMax;
+	}
+
+	public byte getNumberOfTicksRequiredToBuildAnExcuse() {
+		return NumberOfTicksRequiredToBuildAnExcuse;
+	}
+
+	public void setNumberOfTicksRequiredToBuildAnExcuse(
+			byte numberOfTicksRequiredToBuildAnExcuse) {
+		NumberOfTicksRequiredToBuildAnExcuse = numberOfTicksRequiredToBuildAnExcuse;
+	}
+
+	public byte getNumberOfTicksRequiredToBuildTwine() {
+		return NumberOfTicksRequiredToBuildTwine;
+	}
+
+	public void setNumberOfTicksRequiredToBuildTwine(
+			byte numberOfTicksRequiredToBuildTwine) {
+		NumberOfTicksRequiredToBuildTwine = numberOfTicksRequiredToBuildTwine;
+	}
+
+	public short getTickInterval() {
+		return TickInterval;
+	}
+
+	public void setTickInterval(short tickInterval) {
+		TickInterval = tickInterval;
+	}
+
+	@Override
     public void Encode(ByteList bytes) throws NotActiveException, Exception {
         bytes.Add((short) DISTRIBUTABLE_CLASS_IDS.GameConfiguration.getValue());                             // Write out the class type
 
@@ -420,24 +474,26 @@ public class GameConfiguration extends DistributableObject {
         bytes.Add((short) 0);                           // Write out a place holder for the length
 
         bytes.AddObjects(
-                getPlayingFieldWidth(),
+        		getPlayingFieldWidth(),
                 getPlayingFieldHeight(),
+
                 getBrilliantStudentRegistrationMin(),
                 getBrilliantStudentRegistrationMax(),
-                getExcuseGeneratorRegistrationMin(),
-                getExcuseGeneratorRegistrationMax(),
-                getWhiningSpinnerRegistrationMin(),
-                getWhiningSpinnerRegistrationMax(),
                 getBrilliantStudentInitialStrength(),
                 getBrilliantStudentBaseSpeed(),
                 getBrilliantStudentSidewalkSpeedMultiplier(),
                 getBrilliantStudentDeathToZombieDelay(),
+
+                getExcuseGeneratorRegistrationMin(),
+                getExcuseGeneratorRegistrationMax(),
                 getExcuseGeneratorInitialStrength(),
-                getExcuseCreationRate(),
-                getExcuseCreationAcceleration(),
+                getNumberOfTicksRequiredToBuildAnExcuse(),
+
+                getWhiningSpinnerRegistrationMin(),
+                getWhiningSpinnerRegistrationMax(),
                 getWhiningSpinnerInitialStrength(),
-                getWhiningTwineCreationRate(),
-                getWhiningTwineCreationAcceleration(),
+                getNumberOfTicksRequiredToBuildTwine(),
+
                 getZombieInitialStrengthMin(),
                 getZombieInitialStrengthMax(),
                 getZombieInitialSpeedMax(),
@@ -449,11 +505,18 @@ public class GameConfiguration extends DistributableObject {
                 getZombieStrengthIncreaseForEatingStudent(),
                 getZombieStrengthIncreaseForExcuseGenerator(),
                 getZombieStrengthIncreaseForWhiningSpinner(),
+
+                getRefereeRegistrationMin(),
+                getRefereeRegistrationMax(),
+
                 getBombExcuseDamage(),
                 getBombTwinePerSquareOfDistance(),
                 getBombDamageDiffusionFactor(),
+
+                getTickInterval(),
                 getTickLifetime(),
                 getTicksToStrengthRatio());
+
 
         short length = (short) (bytes.getCurrentWritePosition() - lengthPos - 2);
         bytes.WriteInt16To(lengthPos, length);
@@ -468,8 +531,9 @@ public class GameConfiguration extends DistributableObject {
         } else if (bytes.PeekInt16() !=  (short) DISTRIBUTABLE_CLASS_IDS.GameConfiguration.getValue()) {
             throw new ApplicationException("Invalid class id", null);
         } else {
-            short objType = bytes.GetInt16();
+        	short objType = bytes.GetInt16();
             short objLength = bytes.GetInt16();
+
             bytes.SetNewReadLimit(objLength);
 
             PlayingFieldWidth = bytes.GetInt16();
@@ -477,35 +541,42 @@ public class GameConfiguration extends DistributableObject {
 
             BrilliantStudentRegistrationMin = bytes.GetInt16();
             BrilliantStudentRegistrationMax = bytes.GetInt16();
-            ExcuseGeneratorRegistrationMin = bytes.GetInt16();
-            ExcuseGeneratorRegistrationMax = bytes.GetInt16();
-            WhiningSpinnerRegistrationMin = bytes.GetInt16();
-            WhiningSpinnerRegistrationMax = bytes.GetInt16();
+
             BrilliantStudentInitialStrength = bytes.GetFloat();
             BrilliantStudentBaseSpeed = bytes.GetFloat();
             BrilliantStudentSidewalkSpeedMultiplier = bytes.GetFloat();
             BrilliantStudentDeathToZombieDelay = bytes.GetFloat();
-            ExcuseGeneratorInitialStrength = bytes.GetFloat();
-            ExcuseCreationRate = bytes.GetFloat();
-            ExcuseCreationAcceleration = bytes.GetFloat();
 
+            ExcuseGeneratorRegistrationMin = bytes.GetInt16();
+            ExcuseGeneratorRegistrationMax = bytes.GetInt16();
+            ExcuseGeneratorInitialStrength = bytes.GetFloat();
+            NumberOfTicksRequiredToBuildAnExcuse = bytes.GetByte();
+
+            WhiningSpinnerRegistrationMin = bytes.GetInt16();
+            WhiningSpinnerRegistrationMax = bytes.GetInt16();
             WhiningSpinnerInitialStrength = bytes.GetFloat();
-            WhiningTwineCreationRate = bytes.GetFloat();
-            WhiningTwineCreationAcceleration = bytes.GetFloat();
+            NumberOfTicksRequiredToBuildTwine = bytes.GetByte();
+
             ZombieInitialStrengthMin = bytes.GetInt16();
             ZombieInitialStrengthMax = bytes.GetInt16();
             ZombieInitialSpeedMax = bytes.GetFloat();
             ZombieInitialSpeedMin = bytes.GetFloat();
-            ZombieSidewalkSpeedMultiplier = bytes.GetFloat();
-            ZombieCreationRate = bytes.GetFloat();
-            ZombieCreationAcceleration = bytes.GetFloat();
+            ZombieSidewalkSpeedMultiplier  = bytes.GetFloat();
+            ZombieCreationRate  = bytes.GetFloat();
+            ZombieCreationAcceleration  = bytes.GetFloat();
             ZombieEatingRate = bytes.GetFloat();
             ZombieStrengthIncreaseForEatingStudent = bytes.GetFloat();
             ZombieStrengthIncreaseForExcuseGenerator = bytes.GetFloat();
             ZombieStrengthIncreaseForWhiningSpinner = bytes.GetFloat();
+
+            RefereeRegistrationMin = bytes.GetInt16();
+            RefereeRegistrationMax = bytes.GetInt16();
+
             BombExcuseDamage = bytes.GetInt16();
             BombTwinePerSquareOfDistance = bytes.GetFloat();
             BombDamageDiffusionFactor = bytes.GetFloat();
+
+            TickInterval = bytes.GetInt16();
             TickLifetime = bytes.GetInt16();
             TicksToStrengthRatio = bytes.GetFloat();
 
@@ -519,11 +590,6 @@ public class GameConfiguration extends DistributableObject {
 
         BrilliantStudentRegistrationMin = 10;
         BrilliantStudentRegistrationMax = 20;
-        ExcuseGeneratorRegistrationMin = 10;
-        ExcuseGeneratorRegistrationMax = 25;
-        WhiningSpinnerRegistrationMin = 10;
-        WhiningSpinnerRegistrationMax = 25;
-
         BrilliantStudentInitialStrength = 100.0F;
         BrilliantStudentBaseSpeed = 0.25F;
         BrilliantStudentSidewalkSpeedMultiplier = 1.5F;
@@ -532,11 +598,17 @@ public class GameConfiguration extends DistributableObject {
         ExcuseGeneratorInitialStrength = 100.0F;
         ExcuseCreationRate = 0.25F;
         ExcuseCreationAcceleration = 0.125F;
-
+        ExcuseGeneratorRegistrationMin = 10;
+        ExcuseGeneratorRegistrationMax = 20;
+        
+        
         WhiningSpinnerInitialStrength = 100.0F;
         WhiningTwineCreationRate = 0.25F;
         WhiningTwineCreationAcceleration = 0.125F;
-
+        WhiningSpinnerRegistrationMin = 10;
+        WhiningSpinnerRegistrationMax = 20;
+        
+        
         ZombieInitialStrengthMin = 25;
         ZombieInitialStrengthMax = 75;
         ZombieInitialSpeedMax = 0.15F;
@@ -556,5 +628,10 @@ public class GameConfiguration extends DistributableObject {
         TickLifetime = 120;
         TicksToStrengthRatio = 1.0F;
 
+        NumberOfTicksRequiredToBuildAnExcuse = 3;
+        NumberOfTicksRequiredToBuildTwine = 3;
+        
+        RefereeRegistrationMin = 0;
+        RefereeRegistrationMax = 2;
     }
 }

@@ -31,7 +31,7 @@ public class JoinGameTester {
         
         assertEquals(10, jg.getGameId());
         assertSame(agentInfo, jg.getAgentInfo());
-        assertSame(agentInfo, jg.getAgentInfo());
+      
 
         ByteList bytes = new ByteList();
         

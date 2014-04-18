@@ -19,9 +19,9 @@ public class GameConfigurationTester {
         assertEquals(10, gc.getBrilliantStudentRegistrationMin());
         assertEquals(20, gc.getBrilliantStudentRegistrationMax());
         assertEquals(10, gc.getExcuseGeneratorRegistrationMin());
-        assertEquals(25, gc.getExcuseGeneratorRegistrationMax());
+        assertEquals(20, gc.getExcuseGeneratorRegistrationMax());
         assertEquals(10, gc.getWhiningSpinnerRegistrationMin());
-        assertEquals(25, gc.getWhiningSpinnerRegistrationMax());
+        assertEquals(20, gc.getWhiningSpinnerRegistrationMax());
        
         assertEquals(100.0F, gc.getBrilliantStudentInitialStrength(), 0.02);
         assertEquals(0.25F, gc.getBrilliantStudentBaseSpeed(), 0.02);
@@ -143,32 +143,30 @@ public class GameConfigurationTester {
 	@Test
 	 public void GameConfiguration_CheckEncodeAndDecode() throws NotActiveException, Exception
     {
-        GameConfiguration gc1 = new GameConfiguration();
+		GameConfiguration gc1 = new GameConfiguration();
 
-        gc1.setPlayingFieldWidth((short) 50);
-        gc1.setPlayingFieldHeight((short) 51);
+        gc1.setPlayingFieldWidth((short)50);
+        gc1.setPlayingFieldHeight((short)51);
 
         gc1.setBrilliantStudentRegistrationMin((short)10);
         gc1.setBrilliantStudentRegistrationMax((short)11);
-        gc1.setExcuseGeneratorRegistrationMin((short)12);
-        gc1.setExcuseGeneratorRegistrationMax((short)13);
-        gc1.setWhiningSpinnerRegistrationMin((short) 14);
-        gc1.setWhiningSpinnerRegistrationMax((short) 15);
 
         gc1.setBrilliantStudentInitialStrength(2.1F);
         gc1.setBrilliantStudentBaseSpeed(2.2F);
         gc1.setBrilliantStudentSidewalkSpeedMultiplier(2.3F);
         gc1.setBrilliantStudentDeathToZombieDelay(2.4F);
 
+        gc1.setExcuseGeneratorRegistrationMin((short)12);
+        gc1.setExcuseGeneratorRegistrationMax((short)13);
         gc1.setExcuseGeneratorInitialStrength(2.5F);
-        gc1.setExcuseCreationRate(2.6F);
-        gc1.setExcuseCreationAcceleration(2.7F);
+        gc1.setNumberOfTicksRequiredToBuildTwine((byte)3);
 
+        gc1.setWhiningSpinnerRegistrationMin((short)14);
+        gc1.setWhiningSpinnerRegistrationMax((short)15);
         gc1.setWhiningSpinnerInitialStrength(2.8F);
-        gc1.setWhiningTwineCreationRate(2.9F);
-        gc1.setWhiningTwineCreationAcceleration(3.0F);
+        gc1.setNumberOfTicksRequiredToBuildTwine((byte)2);
 
-        gc1.setZombieInitialStrengthMin((short)16);
+        gc1.setZombieInitialStrengthMin((short) 16);
         gc1.setZombieInitialStrengthMax((short)17);
         gc1.setZombieInitialSpeedMax(3.1F);
         gc1.setZombieInitialSpeedMin(3.2F);
@@ -180,17 +178,22 @@ public class GameConfigurationTester {
         gc1.setZombieStrengthIncreaseForExcuseGenerator(3.8F);
         gc1.setZombieStrengthIncreaseForWhiningSpinner(3.9F);
 
+        gc1.setRefereeRegistrationMin((short) 22);
+        gc1.setRefereeRegistrationMax((short)23);
+
         gc1.setBombExcuseDamage((short)18);
         gc1.setBombTwinePerSquareOfDistance(4.0F);
         gc1.setBombDamageDiffusionFactor(4.1F);
 
-        gc1.setTickLifetime((short)19);
+        gc1.setTickLifetime((short) 19);
         gc1.setTicksToStrengthRatio(4.2F);
 
         ByteList bytes = new ByteList();
         gc1.Encode(bytes);
-        
         GameConfiguration gc2 = GameConfiguration.Create(bytes);
+        
+        
+        
         assertEquals(gc1.getPlayingFieldWidth(), gc2.getPlayingFieldWidth());
         assertEquals(gc1.getPlayingFieldHeight(), gc2.getPlayingFieldHeight());
 

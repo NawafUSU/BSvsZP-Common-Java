@@ -59,10 +59,10 @@ public class PlayingFieldLayout extends DistributableObject {
     }
 
     public static int getMinimumEncodingLength() {
-        MinimumEncodingLength = 4 // Object header
-                + 2 // Width
-                + 2 // Height
-                + 2;           // SidewalkSquare list
+        MinimumEncodingLength = 4 			// Object header
+        						+ 2 		// Width
+        						+ 2 		// Height
+        						+ 2;        // SidewalkSquare list
         return MinimumEncodingLength;
     }
 

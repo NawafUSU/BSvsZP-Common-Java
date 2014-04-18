@@ -215,8 +215,8 @@ public abstract class Message implements Comparable {
 
     public static int getMinimumEncodingLength() {
         MinimumEncodingLength = 4 // Object header
-                + 1
-                + 1;
+        						+ 1
+        						+ 1;
         System.out.println("Message.MinimumEncodingLength " + MinimumEncodingLength);
         return MinimumEncodingLength;
     }

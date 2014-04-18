@@ -7,7 +7,7 @@ import org.omg.CORBA.portable.ApplicationException;
 public class Tick extends DistributableObject {
 
     private static short ClassId = (short) DISTRIBUTABLE_CLASS_IDS.Tick.getValue();
-    private static int nextClockTime = 1;
+ 
     private int LogicalClock;
     private long HashCode;
     private static int MinimumEncodingLength;
@@ -115,28 +115,9 @@ public class Tick extends DistributableObject {
 
     }
 
-    private long ComputeHashCode() {
-    	int value = LogicalClock ^ (int)forAgentId;
-    	long hash = 0xAAAAAAAA;
-        byte[] bytes = BitConverter.getBytes(value);
-
-        for (int i = 0; i < bytes.length; i++) {
-            if ((i & 1) == 0) {
-                hash ^= ((hash << 7) ^ bytes[i] * (hash >> 3));
-            } else {
-                hash ^= (~((hash << 11) + bytes[i] ^ (hash >> 5)));
-            }
-        }
-
-        return hash;
-    }
-
-    private static int GetNextClockTime() {
-        if (nextClockTime == Integer.MAX_VALUE) 
-            nextClockTime = 1;
-       
-        return nextClockTime++;
-    }
+    private long ComputeHashCode() { return 0;   }
+    protected int GetNextClockTime() { return 0; } 
+        
 
     public boolean IsValid() {
         return (forAgentId!=0 && getHashCode() == ComputeHashCode());

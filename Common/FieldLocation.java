@@ -64,10 +64,10 @@ public class FieldLocation extends DistributableObject {
     }
 
     public static int getMinimumEncodingLength() {
-        MinimumEncodingLength = 4 // Object header
-                + 2 // X
-                + 2 // Y
-                + 1;           // Immutable
+        MinimumEncodingLength = 4 			// Object header
+        						+ 2 		// X
+        						+ 2 		// Y
+        						+ 1;        // Immutable
         return MinimumEncodingLength;
     }
 

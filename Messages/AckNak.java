@@ -23,9 +23,11 @@ public class AckNak extends Reply {
     }
 
     protected AckNak() { }
+    
     public AckNak(Error error){
     	this (Reply.PossibleStatus.Failure, error.getNumber().getValue(), null, error.getMessage(), ""); 
     }
+    
     public AckNak(PossibleStatus status, int intResult, DistributableObject objResult, String message, String note) {
         super(Reply.PossibleTypes.AckNak, status, note);
         IntResult = intResult;
@@ -48,7 +50,6 @@ public class AckNak extends Reply {
     public AckNak(PossibleStatus status, DistributableObject objResult, String message) {
         this(status, 0, objResult, message, "");
     }
-
     //new
     public static AckNak Create(ByteList messageBytes) throws ApplicationException, Exception {
         AckNak result = null;

@@ -24,7 +24,6 @@ public class WhiningTwine extends DistributableObject {
         setRequestTick(requestTick);
     }
 
-    //new 
     public static WhiningTwine Create(ByteList bytes) throws Exception {
         WhiningTwine result = new WhiningTwine();
         result.Decode(bytes);
@@ -57,9 +56,9 @@ public class WhiningTwine extends DistributableObject {
 
     public static int getMinimumEncodingLength() {
         MinimumEncodingLength = 4 // Object header
-                + 2 // Id
-                + 2 // List of ticks
-                + Tick.getMinimumEncodingLength();
+        						+ 2 // Id
+        						+ 2 // List of ticks
+        						+ Tick.getMinimumEncodingLength();
         return MinimumEncodingLength;
     }
 

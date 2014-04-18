@@ -8,9 +8,11 @@ public class GameInfo extends ComponentInfo {
 
         NOT_INITIAlIZED(0),
         AVAILABLE(1),
-        RUNNING(2),
-        COMPLETED(3),
-        DEAD(4);
+        STARTING(2),
+        RUNNING(3),
+        STOPPING(4),
+        COMPLETED(5),
+        DEAD(6);
 
         private int value;
 
@@ -45,9 +47,9 @@ public class GameInfo extends ComponentInfo {
         AliveTimestamp = new Date();
     }
 
-    public GameInfo(short id, String label, EndPoint ep) //, GameStatus status)
+    public GameInfo(short id, String label, EndPoint ep)
     {
-        Id = id;
+    	Id = id;
         Label = label;
         CommmunicationEndPoint = ep;
         AliveTimestamp = new Date();
@@ -84,7 +86,7 @@ public class GameInfo extends ComponentInfo {
     }
 
     public void setLabel(String label) {
-        Label = label;
+    	Label = label;
     }
 
     @Override

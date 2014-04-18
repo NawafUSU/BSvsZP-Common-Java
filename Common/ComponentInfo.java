@@ -31,14 +31,7 @@ public class ComponentInfo extends DistributableObject {
 
     }
 
-    /*// new
-     public static ComponentInfo Create(ByteList bytes) throws ApplicationException, Exception
-     {
-     ComponentInfo result = new ComponentInfo();
-     result.Decode(bytes);
-     return result;
-     }
-     */
+   
     @Override
     public void Encode(ByteList bytes) throws UnknownHostException, Exception {
         bytes.Add((short) DISTRIBUTABLE_CLASS_IDS.ComponentInfo.getValue());                             // Write out the class type

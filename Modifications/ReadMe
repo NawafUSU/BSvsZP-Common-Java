@@ -1,6 +1,37 @@
 ==================================
 4/17/2014
 ==================================
+Error:
+1) Updated StandardErrorNumbers
+2) Updated the constructor
+
+GameInfo
+1) Update GameStatus by adding STARTING and STOPPING status
+
+GameConfiguration
+1) Added attributes NumberOfTicksRequiredToBuildAnExcuse, NumberOfTicksRequiredToBuildTwine, RefereeRegistrationMin and RefereeRegistrationMax.
+2) Updated the constructor
+3) Updated the value of some parameters
+4) Update Encode and Decode methods
+
+
+AgentInfo
+1) Added Referee
+
+EndGame
+1) Added Winners
+2) Update Encode and Decode methods
+
+EndPoint
+1) Update Match methods
+
+AckNak
+1) Added one constructor AckNak(Error error)
+
+Reply
+1) Update Create method
+
+
 Tick class
 1) Added forAgentId to the Tck.java class
 2) Updated Tick's constructors and ComputeHashCode() method

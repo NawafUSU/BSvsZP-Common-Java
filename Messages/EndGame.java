@@ -2,12 +2,14 @@ package Messages;
 
 import org.omg.CORBA.portable.ApplicationException;
 
+import Common.AgentList;
 import Common.ByteList;
 
 public class EndGame extends Request {
 
-    private static short ClassId;
+    private static short ClassId = (short) MESSAGE_CLASS_IDS.EndGame.getValue();
     public short GameId;
+    public AgentList Winners;
     private static int MinimumEncodingLength;
 
     public EndGame() {
@@ -30,7 +32,7 @@ public class EndGame extends Request {
 
         if (bytes == null || bytes.getRemainingToRead() < EndGame.getMinimumEncodingLength()) {
             throw new ApplicationException("Invalid message byte array", null);
-        } else if (bytes.PeekInt16() != ClassId) {
+        } else if (bytes.PeekInt16() != (short) MESSAGE_CLASS_IDS.EndGame.getValue()) {
             throw new ApplicationException("Invalid message class id", null);
         } else {
             result = new EndGame();
@@ -50,7 +52,7 @@ public class EndGame extends Request {
         bytes.update();
         super.Encode(bytes);                              // Encode the part of the object defined
         // by the base class
-        bytes.Add(GameId);
+        bytes.AddObjects(GameId, Winners);
         bytes.update();
         Integer lenghtinBytes = (bytes.getCurrentWritePosition() - lengthPos - 2);
         short length = lenghtinBytes.shortValue();
@@ -69,6 +71,7 @@ public class EndGame extends Request {
         bytes.update();
         super.Decode(bytes);
         GameId = bytes.GetInt16();
+        Winners = (AgentList) bytes.GetDistributableObject();
         bytes.update();
         bytes.RestorePreviosReadLimit();
         bytes.update();
@@ -102,7 +105,7 @@ public class EndGame extends Request {
 
     @Override
     public MESSAGE_CLASS_IDS MessageTypeId() {
-        return Message.MESSAGE_CLASS_IDS.EndGame;
+        return Message.MESSAGE_CLASS_IDS.fromShort((short) MESSAGE_CLASS_IDS.EndGame.getValue());
     }
 
 }

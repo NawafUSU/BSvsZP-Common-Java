@@ -98,12 +98,12 @@ public class AgentInfo extends ComponentInfo {
     }
 
     public enum PossibleAgentType {
-
+    	Other(0),
         BrilliantStudent(1),
         ExcuseGenerator(2),
         WhiningSpinner(3),
-        ZombieProfessor(4);
-
+        ZombieProfessor(4),
+        Referee(5);
         private int value;
 
         PossibleAgentType(int value) {

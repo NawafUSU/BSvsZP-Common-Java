@@ -133,16 +133,26 @@ public class EndPoint extends DistributableObject {
         return new InetSocketAddress(String.valueOf(Address), Port);
     }
 
-    public static boolean Match(EndPoint ep1, EndPoint ep2) {
-        return (ep1.Address == ep2.Address && ep1.Port == ep2.Port);
+    public static boolean Match(EndPoint ep1, EndPoint ep2) 
+    {
+        boolean result = false;
+    	if (ep1 == null && ep2 == null)
+    		result = true;
+    	else if (ep1 != null && ep2 != null)
+    	       result = (ep1.Address == ep2.Address && ep1.Port == ep2.Port);
+    	return result;
     }
 
-    public static boolean Match(InetSocketAddress ep1, InetSocketAddress ep2) {
-        return (ep1.getAddress().getAddress()[0] == ep2.getAddress().getAddress()[0]
-                && ep1.getAddress().getAddress()[1] == ep2.getAddress().getAddress()[1]
-                && ep1.getAddress().getAddress()[2] == ep2.getAddress().getAddress()[2]
-                && ep1.getAddress().getAddress()[3] == ep2.getAddress().getAddress()[3]
-                && ep1.getPort() == ep2.getPort());
+    public static boolean Match(InetSocketAddress ep1, InetSocketAddress ep2) 
+    {
+     	 boolean result = false;
+         if (ep1 == null &&  ep2 == null)
+             result = true;
+         else if (ep1 != null && ep2 != null)
+         {
+             result = (ep1.getAddress().equals(ep2.getAddress()) && ep1.getPort() == ep2.getPort());
+         }
+         return result;
     }
 
     public boolean Equals(Object obj) {
