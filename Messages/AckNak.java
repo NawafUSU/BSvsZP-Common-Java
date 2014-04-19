@@ -8,10 +8,8 @@ import Common.Error;
 import Common.DistributableObject;
 import Messages.Message;
 
-public class AckNak extends Reply {
-
-    private static short ClassId = (short) MESSAGE_CLASS_IDS.AckNak.getValue();
-
+public class AckNak extends Reply
+{
     public int IntResult;
     public DistributableObject ObjResult;
     public String Message;
@@ -27,14 +25,16 @@ public class AckNak extends Reply {
     public AckNak(Error error){
     	this (Reply.PossibleStatus.Failure, error.getNumber().getValue(), null, error.getMessage(), ""); 
     }
-    
     public AckNak(PossibleStatus status, int intResult, DistributableObject objResult, String message, String note) {
         super(Reply.PossibleTypes.AckNak, status, note);
         IntResult = intResult;
         ObjResult = objResult;
         Message = message;
     }
-
+    public AckNak(PossibleStatus status){
+    	this(status, 0, null, "", "");
+    }
+    
     public AckNak(PossibleStatus status, int intResult) {
         this(status, intResult, null, "", "");
     }
@@ -50,16 +50,16 @@ public class AckNak extends Reply {
     public AckNak(PossibleStatus status, DistributableObject objResult, String message) {
         this(status, 0, objResult, message, "");
     }
-    //new
+
     public static AckNak Create(ByteList messageBytes) throws ApplicationException, Exception {
         AckNak result = null;
 
-        if (messageBytes == null || messageBytes.getRemainingToRead() < AckNak.getMinimumEncodingLength()) {
+        if (messageBytes == null || messageBytes.getRemainingToRead() < AckNak.getMinimumEncodingLength()) 
             throw new ApplicationException("Invalid message byte array", null);
-        }
-        if (messageBytes.PeekInt16() != (short) MESSAGE_CLASS_IDS.AckNak.getValue()) {
+      
+        if (messageBytes.PeekInt16() != (short) MESSAGE_CLASS_IDS.AckNak.getValue())
             throw new ApplicationException("Invalid message class id", null);
-        } else {
+        else {
             result = new AckNak();
             messageBytes.update();
             result.Decode(messageBytes);
@@ -148,8 +148,7 @@ public class AckNak extends Reply {
 
     @Override
     public short getClassId() {
-        ClassId = (short) MESSAGE_CLASS_IDS.AckNak.getValue();
-        return ClassId;
+    	return (short) MESSAGE_CLASS_IDS.AckNak.getValue();
     }
 
     @Override

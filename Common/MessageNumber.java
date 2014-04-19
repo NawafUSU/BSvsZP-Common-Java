@@ -7,7 +7,6 @@ import org.omg.CORBA.portable.ApplicationException;
 
 public class MessageNumber extends DistributableObject implements Comparable {
 
-    private static short ClassId = (short) DistributableObject.DISTRIBUTABLE_CLASS_IDS.MessageNumber.getValue();
     private static short nextSeqNumber = 1;              // Start with message #1
 
     public static MessageNumber Empty;
@@ -43,17 +42,16 @@ public class MessageNumber extends DistributableObject implements Comparable {
         return result;
     }
 
-    private MessageNumber() {   }
+    private MessageNumber() {
+    }
 
     @Override
     public String toString() {
         return ProcessId + "." + SeqNumber;
     }
 
-    public boolean Equals(Object obj) 
-    {
-    	return (Compare(this, (MessageNumber) obj )==0);
-    	/* boolean tag = false;
+    public boolean Equals(Object obj) {
+        boolean tag = false;
         int result = Compare(this, (MessageNumber) obj);
 
         if (result > 0) {
@@ -63,7 +61,7 @@ public class MessageNumber extends DistributableObject implements Comparable {
         } else if (result == 0) {
             tag = true;
         }
-        return tag;*/
+        return tag;
     }
 
     public int GetHashCode() {
@@ -154,15 +152,14 @@ public class MessageNumber extends DistributableObject implements Comparable {
     }
 
     public static int getMinimumEncodingLength() {
-        MinimumEncodingLength = 4 			// Object header
-        						+ 2 		// ProcessId
-        						+ 2;        // SeqNumber
+        MinimumEncodingLength = 4 // Object header
+                + 2 // ProcessId
+                + 2;             // SeqNumber
         return MinimumEncodingLength;
     }
 
     public static short getClassId() {
-        ClassId = (short) DistributableObject.DISTRIBUTABLE_CLASS_IDS.MessageNumber.getValue();
-        return ClassId;
+        return (short) DistributableObject.DISTRIBUTABLE_CLASS_IDS.MessageNumber.getValue();
     }
 
     @Override

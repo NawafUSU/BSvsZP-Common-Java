@@ -6,7 +6,6 @@ import org.omg.CORBA.portable.ApplicationException;
 
 public class FieldLocation extends DistributableObject {
 
-    private static short ClassId = (short) DISTRIBUTABLE_CLASS_IDS.FieldLocation.getValue();
     private boolean xSet = false;
     private boolean ySet = false;
     private boolean immutable = false;
@@ -64,10 +63,10 @@ public class FieldLocation extends DistributableObject {
     }
 
     public static int getMinimumEncodingLength() {
-        MinimumEncodingLength = 4 			// Object header
-        						+ 2 		// X
-        						+ 2 		// Y
-        						+ 1;        // Immutable
+        MinimumEncodingLength = 4 // Object header
+                + 2 // X
+                + 2 // Y
+                + 1;           // Immutable
         return MinimumEncodingLength;
     }
 
@@ -76,8 +75,7 @@ public class FieldLocation extends DistributableObject {
     }
 
     public static short getClassId() {
-        ClassId = (short) DISTRIBUTABLE_CLASS_IDS.FieldLocation.getValue();
-        return ClassId;
+        return (short)DISTRIBUTABLE_CLASS_IDS.FieldLocation.getValue();
     }
     public String ToString()
     {

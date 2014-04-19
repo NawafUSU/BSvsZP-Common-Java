@@ -29,7 +29,6 @@ public class ReadyReplyTester {
 	 
 	             Message msg = Message.Create(byteList);
 	             assertNotNull(msg);
-	             //assertTrue(msg, ReadyReply);
 	             ReadyReply r2 = (ReadyReply)msg;
 	             assertEquals(r1.Status, r2.Status);
 	             assertEquals(r1.Note, r2.Note);

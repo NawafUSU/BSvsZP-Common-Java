@@ -39,7 +39,6 @@ public class StatusReplyTester {
 		 Message msg = Message.Create(byteList);
 		 
 		 assertNotNull(msg);
-		 //assertTrue(msg.Equals(Messages.StatusReply));
 		 StatusReply r2 = (StatusReply) msg ;
 		 assertEquals(r1.Status, r2.Status);
 		 assertEquals(r1.Info.getId(), r2.Info.getId());

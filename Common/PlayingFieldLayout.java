@@ -7,7 +7,6 @@ import org.omg.CORBA.portable.ApplicationException;
 
 public class PlayingFieldLayout extends DistributableObject {
 
-    private static short ClassId = (short) DISTRIBUTABLE_CLASS_IDS.PlayingFieldLayout.getValue();
     private short Width;
     private short Height;
     public ArrayList<FieldLocation> SidewalkSquares;
@@ -30,8 +29,8 @@ public class PlayingFieldLayout extends DistributableObject {
     }
 
     public static short getClassId() {
-        ClassId = (short) DISTRIBUTABLE_CLASS_IDS.PlayingFieldLayout.getValue();
-        return ClassId;
+        return (short) DISTRIBUTABLE_CLASS_IDS.PlayingFieldLayout.getValue();
+        
     }
 
     public short getWidth() {
@@ -59,10 +58,10 @@ public class PlayingFieldLayout extends DistributableObject {
     }
 
     public static int getMinimumEncodingLength() {
-        MinimumEncodingLength = 4 			// Object header
-        						+ 2 		// Width
-        						+ 2 		// Height
-        						+ 2;        // SidewalkSquare list
+        MinimumEncodingLength = 4 // Object header
+                + 2 // Width
+                + 2 // Height
+                + 2;           // SidewalkSquare list
         return MinimumEncodingLength;
     }
 

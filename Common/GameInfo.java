@@ -4,16 +4,16 @@ import java.util.Date;
 
 public class GameInfo extends ComponentInfo {
 
-    public enum GameStatus {
-
-        NOT_INITIAlIZED(0),
+    public enum GameStatus 
+    {
+    	NOT_INITIAlIZED(0),
         AVAILABLE(1),
         STARTING(2),
         RUNNING(3),
         STOPPING(4),
         COMPLETED(5),
         DEAD(6);
-
+    	
         private int value;
 
         int getValue() {
@@ -47,9 +47,9 @@ public class GameInfo extends ComponentInfo {
         AliveTimestamp = new Date();
     }
 
-    public GameInfo(short id, String label, EndPoint ep)
+    public GameInfo(short id, String label, EndPoint ep) //, GameStatus status)
     {
-    	Id = id;
+        Id = id;
         Label = label;
         CommmunicationEndPoint = ep;
         AliveTimestamp = new Date();
@@ -86,7 +86,7 @@ public class GameInfo extends ComponentInfo {
     }
 
     public void setLabel(String label) {
-    	Label = label;
+        Label = label;
     }
 
     @Override

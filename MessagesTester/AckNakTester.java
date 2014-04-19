@@ -17,7 +17,7 @@ import Messages.Reply;
 public class AckNakTester {
 
 	@Test
-	public void AckNak_CheckConstructorsAndFactories() throws NotActiveException, UnknownHostException, Exception {
+	public void test() {
 		Tick t1 = new Tick();
         AckNak m = new AckNak(Reply.PossibleStatus.Success, 10, t1, "Test Message", "Test Note");
         assertEquals(Reply.PossibleTypes.AckNak, m.ReplyType);
@@ -60,14 +60,6 @@ public class AckNakTester {
         assertEquals("Test Message", m.Message);
         assertEquals("", m.Note);
 
-        ByteList bytes = new ByteList();
-        m.Encode(bytes);
-        Message msg = Message.Create(bytes);
-        assertNotNull(msg);
-        //Assert.IsTrue(msg is AckNak);
-        AckNak m2 = (AckNak) msg;
-        assertEquals(m.Status, m2.Status);
-        assertEquals(m.Note, m2.Note);
 	}
 	@Test
 	public void AckNak_CheckProperties()

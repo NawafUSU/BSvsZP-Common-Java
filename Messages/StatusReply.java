@@ -8,10 +8,8 @@ import org.omg.CORBA.portable.ApplicationException;
 import Common.AgentInfo;
 import Common.ByteList;
 
-public class StatusReply extends Reply {
-
-    private static short ClassId = (short) MESSAGE_CLASS_IDS.StatusReply.getValue();
-
+public class StatusReply extends Reply
+{
     public AgentInfo Info;
     public static int MinimumEncodingLength;
 
@@ -25,13 +23,12 @@ public class StatusReply extends Reply {
 
     @Override
     public short getClassId() {
-        ClassId = (short) MESSAGE_CLASS_IDS.StatusReply.getValue();
-        return ClassId;
+        return (short) MESSAGE_CLASS_IDS.StatusReply.getValue();
     }
 
     public static int getMinimumEncodingLength() {
         MinimumEncodingLength = 4 // Object header
-                + 1;             // Agent Info;
+        						+ 1;             // Agent Info;
         return MinimumEncodingLength;
     }
 
@@ -69,7 +66,7 @@ public class StatusReply extends Reply {
 
         super.Encode(bytes);                             // Encode stuff from base class
 
-        bytes.Add(getInfo());
+        bytes.Add(Info);
 
         short length = (short) (bytes.getCurrentWritePosition() - lengthPos - 2);
         bytes.WriteInt16To(lengthPos, length);          // Write out the length of this object        
@@ -92,7 +89,7 @@ public class StatusReply extends Reply {
 
     @Override
     public MESSAGE_CLASS_IDS MessageTypeId() {
-        return Message.MESSAGE_CLASS_IDS.fromShort(ClassId);
+        return Message.MESSAGE_CLASS_IDS.StatusReply;
     }
 
     @Override

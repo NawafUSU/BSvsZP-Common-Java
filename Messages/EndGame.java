@@ -7,7 +7,6 @@ import Common.ByteList;
 
 public class EndGame extends Request {
 
-    private static short ClassId = (short) MESSAGE_CLASS_IDS.EndGame.getValue();
     public short GameId;
     public AgentList Winners;
     private static int MinimumEncodingLength;
@@ -23,10 +22,10 @@ public class EndGame extends Request {
 
     protected EndGame(PossibleTypes type) {
         super(type);
-        // TODO Auto-generated constructor stub
+  
     }
 
-    //new
+   
     public static EndGame Create(ByteList bytes) throws ApplicationException, Exception {
         EndGame result = null;
 
@@ -50,8 +49,7 @@ public class EndGame extends Request {
         bytes.update();                                         // can write the length here later
         bytes.Add((short) 0);                             // Write out a place holder for the length
         bytes.update();
-        super.Encode(bytes);                              // Encode the part of the object defined
-        // by the base class
+        super.Encode(bytes);                              // Encode the part of the object defined by the base class
         bytes.AddObjects(GameId, Winners);
         bytes.update();
         Integer lenghtinBytes = (bytes.getCurrentWritePosition() - lengthPos - 2);
@@ -71,6 +69,7 @@ public class EndGame extends Request {
         bytes.update();
         super.Decode(bytes);
         GameId = bytes.GetInt16();
+        bytes.update();
         Winners = (AgentList) bytes.GetDistributableObject();
         bytes.update();
         bytes.RestorePreviosReadLimit();
@@ -93,8 +92,7 @@ public class EndGame extends Request {
 
     @Override
     public short getClassId() {
-        ClassId = (short) MESSAGE_CLASS_IDS.EndGame.getValue();
-        return ClassId;
+        return(short) MESSAGE_CLASS_IDS.EndGame.getValue();
     }
 
     @Override
@@ -105,7 +103,7 @@ public class EndGame extends Request {
 
     @Override
     public MESSAGE_CLASS_IDS MessageTypeId() {
-        return Message.MESSAGE_CLASS_IDS.fromShort((short) MESSAGE_CLASS_IDS.EndGame.getValue());
+        return Message.MESSAGE_CLASS_IDS.EndGame;
     }
 
 }

@@ -25,13 +25,11 @@ public class TickTester {
 
         tick1 = new Tick((short) 10);
         Tick tick2 = new Tick();
-        
        
         assertEquals(10, tick1.getForAgentId());
         assertEquals(tick1.getLogicalClock() , tick2.getLogicalClock());
-        assertEquals(tick1.getHashCode(), tick2.getHashCode());
-        
-        assertEquals(tick1.getHashCode(), tick2.getHashCode());
+        assertEquals(tick1.getHashCode(), tick2.getHashCode()); 
+       
     }
 
 
@@ -41,12 +39,12 @@ public class TickTester {
         Tick tick1 = new Tick();
         tick1.setLogicalClock(100);
         assertEquals(100, tick1.getLogicalClock());
-        //assertNotEquals(100, tick1.getHashCode());
+        
 
         Tick tick2 = new Tick();
         tick2.setLogicalClock(tick1.getLogicalClock() + 1);
         assertEquals(101, tick2.getLogicalClock());
-        //assertNotEquals(tick1.getHashCode(), tick2.getHashCode());
+       
     }
 
 	@Test
@@ -58,8 +56,7 @@ public class TickTester {
         tick1.Encode(bytes);
         Tick tick2 = Tick.Create(bytes);
         assertEquals(10, tick1.getForAgentId());
-        System.out.println("tick1.getLogicalClock() = " + tick1.getLogicalClock());
-        System.out.println("tick2.getLogicalClock() = " + tick2.getLogicalClock());
+    
         assertEquals(tick1.getLogicalClock(), tick2.getLogicalClock());
         assertEquals(tick1.getHashCode(), tick2.getHashCode());
 
